@@ -1,6 +1,7 @@
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -45,11 +46,19 @@ public class FirstTest {
                 10
         );
 
-        waitForElementPresent(
-                By.xpath("//*[contains(@text,'Search…')]"),
-                "The text is not 'Search…'",
+       WebElement text_expected =  waitForElementPresent(
+                By.id("org.wikipedia:id/search_src_text"),
+                "Cannot find search line'",
                 5
         );
+        String article_title = text_expected.getAttribute("text");
+
+        Assert.assertEquals(
+                "Strange text",
+                "Search…",
+                article_title
+        );
+
 
     }
 
